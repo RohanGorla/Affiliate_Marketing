@@ -1,0 +1,38 @@
+.App_Title {
+  position: sticky;
+  top: 0px;
+  background-color: #242424;
+  text-align: center;
+  padding: .3em 0 1em 0;
+}
+
+.Product_Display {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr ));
+  column-gap: 1em;
+}
+
+.Product_Container {
+  padding: .2em;
+  margin: .5em 0;
+  /* border: .1px solid white; */
+  /* border-radius: 7px; */
+  display: flex;
+  flex-direction: column;
+}
+
+.Product_Image {
+  width: 100%;
+  cursor: pointer;
+  margin: 1em 0;
+}
+
+.Product_Image img {
+  border-radius: 10px;
+}
+
+.Product_MRP--Strike {
+  text-decoration: line-through;
+}
