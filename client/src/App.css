@@ -6,11 +6,16 @@
   padding: .3em 0 1em 0;
 }
 
+.App_Title--Text {
+  font-size: 24px;
+}
+
 .Product_Display {
   width: 90%;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr ));
+  /* grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr )); */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
   column-gap: 1em;
 }
 
