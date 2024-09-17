@@ -1,43 +1,105 @@
+:root {
+  --Main_Title: 20px;
+  --Product_Name: 14px;
+  --Product_Category: 12px;
+  --Product_Company: 12px;
+  --Product_Price: 14px;
+  --Product_Mrp: 12px;
+}
+
 .App_Title {
   position: sticky;
   top: 0px;
   background-color: #242424;
   text-align: center;
-  padding: .3em 0 1em 0;
+  padding: .3em 0 .5em 0;
 }
 
 .App_Title--Text {
-  font-size: 24px;
+  font-size: var(--Main_Title);
 }
 
 .Product_Display {
-  width: 90%;
+  width: 97%;
   margin: 0 auto;
   display: grid;
-  /* grid-template-columns: repeat(auto-fit, minmax( 300px, 1fr )); */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
-  column-gap: 1em;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  column-gap: .25em;
 }
 
 .Product_Container {
   padding: .2em;
-  margin: .5em 0;
-  /* border: .1px solid white; */
-  /* border-radius: 7px; */
+  margin: .1em 0;
+  max-height: 500px;
   display: flex;
   flex-direction: column;
+  background-color: black;
 }
 
 .Product_Image {
   width: 100%;
-  cursor: pointer;
-  margin: 1em 0;
+  margin: .3em 0 1em 0;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .Product_Image img {
   border-radius: 10px;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
 }
 
 .Product_MRP--Strike {
   text-decoration: line-through;
+}
+
+.Product_Name {
+  font-size: var(--Product_Name);
+}
+
+.Product_Category {
+  font-size: var(--Product_Category);
+}
+
+.Product_Company {
+  font-size: var(--Product_Company);
+}
+
+.Product_Price {
+  font-size: var(--Product_Price);
+}
+
+.Product_MRP {
+  font-size: var(--Product_Mrp);
+}
+
+.Product_Filter_Tab--Mobile {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+  background-color: gold;
+  color: black;
+  width: 100%;
+  padding: .5em 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Product_Category_Window--Mobile,
+.Product_Filter_Window--Mobile {
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+  background-color: brown;
+  width: 100%;
+  height: 600px;
+}
+
+@media (min-width: 600px) {
+
 }

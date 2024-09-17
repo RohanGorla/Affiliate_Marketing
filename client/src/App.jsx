@@ -4,6 +4,12 @@ import "./App.css";
 
 function App() {
   const [data, setData] = useState([]);
+  const [pcwm, setPcwm] = useState(false);
+  const [pfwm, setPfwm] = useState(false);
+  const [category, setCategory] = useState("");
+  const [lowerPrice, setLowerPrice] = useState("");
+  const [upperPrice, setUpperPrice] = useState("");
+  const [company, setCompany] = useState([]);
 
   async function getProductData() {
     let response = await axios.get("http://localhost:8008/");
@@ -24,11 +30,11 @@ function App() {
         <div className="Product_Display">
           {data?.map((data) => {
             return (
-              <div className="Product_Container">
+              <div className="Product_Container" key={data.id}>
                 <div className="Product_Image">
                   <img
-                    style={{ maxWidth: "100%" }}
                     src={data.image_url}
+                    // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABbXr4i-QODqhy7tofHYmTYh05rYPktzacw&s"
                     onClick={() => {
                       window.open(`${data.product_url}`);
                     }}
@@ -38,11 +44,11 @@ function App() {
                   <p className="Product_Name">{data.product_name}</p>
                   <p className="Product_Category">{data.product_category}</p>
                   <p className="Product_Company">{data.company_name}</p>
-                  <p className="Product_Price">{data.offer_price}</p>
+                  <p className="Product_Price">₹{data.offer_price}</p>
                   <p className="Product_MRP">
                     M.R.P:{" "}
                     <span className="Product_MRP--Strike">
-                      {data.product_mrp}
+                      ₹{data.product_mrp}
                     </span>
                   </p>
                 </div>
@@ -50,12 +56,31 @@ function App() {
             );
           })}
         </div>
-        <div className="Product_Filter--Mobile">
-          <div className="Product_Category">
-            <p></p>
+        <div
+          className={pcwm ? "Product_Category_Window--Mobile" : "Display_None"}
+        ></div>
+        <div
+          className={pfwm ? "Product_Filter_Window--Mobile" : "Display_None"}
+        ></div>
+        <div className="Product_Filter_Tab--Mobile">
+          <div
+            className="Product_Filter--Category"
+            onClick={() => {
+              setPcwm(!pcwm);
+              setPfwm(false);
+            }}
+          >
+            <p>Category</p>
           </div>
-          <div className="Product_Company"></div>
-          <div className="Product_Price"></div>
+          <div
+            className="Product_Filter--Filter"
+            onClick={() => {
+              setPfwm(!pfwm);
+              setPcwm(false);
+            }}
+          >
+            <p>Filter</p>
+          </div>
         </div>
       </div>
     </div>

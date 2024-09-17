@@ -3,7 +3,7 @@ import axios from "axios";
 import "./App.css";
 
 function App() {
-  const [file, setFile] = useState("");
+  const [file, setFile] = useState();
   const [name, setName] = useState("");
   const [cat, setCat] = useState("");
   const [company, setCompany] = useState("");
@@ -22,6 +22,13 @@ function App() {
       url: url,
     });
     console.log(response.data);
+    setFile();
+    setName("");
+    setCat("");
+    setCompany("");
+    setMrp("");
+    setPrice("");
+    setUrl("");
     let res2 = await axios.put(response.data, file, {
       headers: {
         "Content-Type": file.type,
@@ -48,6 +55,7 @@ function App() {
           onChange={(e) => {
             setName(e.target.value);
           }}
+          placeholder="Enter product name"
         ></input>
       </div>
       <div className="Category">
@@ -57,6 +65,7 @@ function App() {
           onChange={(e) => {
             setCat(e.target.value);
           }}
+          placeholder="Enter category"
         ></input>
       </div>
       <div className="Company">
@@ -66,6 +75,7 @@ function App() {
           onChange={(e) => {
             setCompany(e.target.value);
           }}
+          placeholder="Enter company name"
         ></input>
       </div>
       <div className="MRP">
@@ -75,6 +85,7 @@ function App() {
           onChange={(e) => {
             setMrp(e.target.value);
           }}
+          placeholder="Enter mrp"
         ></input>
       </div>
       <div className="Price">
@@ -84,6 +95,7 @@ function App() {
           onChange={(e) => {
             setPrice(e.target.value);
           }}
+          placeholder="Enter final price"
         ></input>
       </div>
       <div className="URL">
@@ -93,6 +105,7 @@ function App() {
           onChange={(e) => {
             setUrl(e.target.value);
           }}
+          placeholder="Enter product url"
         ></input>
       </div>
       <div>
