@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [data, setData] = useState([]);
+  const [actualData, setActualData] = useState([]);
   const [pcwm, setPcwm] = useState(false);
   const [pfwm, setPfwm] = useState(false);
   const [category, setCategory] = useState("");
@@ -15,6 +16,18 @@ function App() {
     let response = await axios.get("http://localhost:8008/");
     console.log(response.data);
     setData(response.data);
+    setActualData(response.data);
+  }
+
+  function selectCategory() {
+    let newData = actualData.filter((product) => {
+      console.log(product, category);
+      if (product.product_category === category) {
+        return product;
+      }
+    });
+    console.log(newData);
+    setData(newData);
   }
 
   useEffect(() => {
@@ -33,8 +46,8 @@ function App() {
               <div className="Product_Container" key={data.id}>
                 <div className="Product_Image">
                   <img
-                    src={data.image_url}
-                    // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABbXr4i-QODqhy7tofHYmTYh05rYPktzacw&s"
+                    // src={data.image_url}
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABbXr4i-QODqhy7tofHYmTYh05rYPktzacw&s"
                     onClick={() => {
                       window.open(`${data.product_url}`);
                     }}
@@ -58,7 +71,32 @@ function App() {
         </div>
         <div
           className={pcwm ? "Product_Category_Window--Mobile" : "Display_None"}
-        ></div>
+        >
+          <p>Select category</p>
+          <select
+            onChange={(e) => {
+              setCategory(e.target.value);
+            }}
+          >
+            <option defaultValue={true} hidden>
+              Select category
+            </option>
+            <option value="Smartphone">Smartphone</option>
+            <option value="Laptop">Laptops & Tabs</option>
+            <option value="Television">Televisions</option>
+            <option value="Kitchen">Kitchen appliances</option>
+          </select>
+          <div>
+            <button
+              onClick={() => {
+                setPcwm(false);
+                selectCategory();
+              }}
+            >
+              Show products
+            </button>
+          </div>
+        </div>
         <div
           className={pfwm ? "Product_Filter_Window--Mobile" : "Display_None"}
         ></div>
