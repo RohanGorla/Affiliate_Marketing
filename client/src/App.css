@@ -1,14 +1,19 @@
 :root {
   --Main_Title: 20px;
-  --Product_Name: 14px;
-  --Product_Category: 12px;
-  --Product_Company: 12px;
-  --Product_Price: 14px;
-  --Product_Mrp: 12px;
+  --Product_Name: 20px;
+  --Product_Category: 14px;
+  --Product_Company: 14px;
+  --Product_Price: 20px;
+  --Product_Mrp: 16px;
+  --Category_Select-Main: 22px;
+  --Category_Select-Select: 13px;
+  --Category_Select-Button: 14px;
 }
 
 .App_Title {
-  position: sticky;
+  position: fixed;
+  display: block;
+  width: 100%;
   top: 0px;
   background-color: #242424;
   text-align: center;
@@ -22,25 +27,22 @@
 .Product_Display {
   width: 97%;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  column-gap: .25em;
+  padding-bottom: 3em;
 }
 
 .Product_Container {
-  padding: .2em;
   margin: .1em 0;
-  max-height: 500px;
+  min-height: 250px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   background-color: black;
 }
 
 .Product_Image {
-  width: 100%;
   margin: .3em 0 1em 0;
-  height: 150px;
   display: flex;
+  height: 100%;
+  width: 40%;
   justify-content: center;
   align-items: center;
 }
@@ -53,8 +55,8 @@
   cursor: pointer;
 }
 
-.Product_MRP--Strike {
-  text-decoration: line-through;
+.Product_Details {
+  padding: .3em 0;
 }
 
 .Product_Name {
@@ -77,6 +79,10 @@
   font-size: var(--Product_Mrp);
 }
 
+.Product_MRP--Strike {
+  text-decoration: line-through;
+}
+
 .Product_Filter_Tab--Mobile {
   position: fixed;
   bottom: 0;
@@ -94,12 +100,131 @@
 .Product_Filter_Window--Mobile {
   position: fixed;
   bottom: 0;
+  left: 1.5vw;
   z-index: 1;
-  background-color: brown;
-  width: 100%;
+  background-color: whitesmoke;
+  color: black;
+  width: 97vw;
   height: 600px;
+  padding: 1em .7em;
 }
 
-@media (min-width: 600px) {
+.Select_Category_Heading {
+  font-size: var(--Category_Select-Main);
+}
+
+.Select_Category--Select {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+}
+
+.Select_Category--Select select {
+  font-size: var(--Category_Select-Select);
+  padding: .3em 0;
+  width: 200px;
+  border-style: none;
+}
+
+.Select_Category_Button {
+  display: flex;
+  justify-content: center;
+}
+
+.Select_Category_Button button {
+  font-size: var(--Category_Select-Button);
+  padding: .8em 1em;
+  border-style: none;
+  border-radius: 7px;
+}
+
+.Select_Category_Button--Active button{
+  background-color: black;
+  color: white;
+}
+
+.Select_Company, .Select_Price {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0;
+}
+
+.Select_Company select {
+  font-size: var(--Category_Select-Select);
+  padding: .3em 0;
+  width: 200px;
+  border-style: none;
+}
+
+.Select_Price select {
+  font-size: var(--Category_Select-Select);
+  padding: .3em 0;
+  width: 200px;
+  border-style: none;
+}
+
+.Product_Filter--Category p, .Product_Filter--Filter p {
+  width: 100px;
+  text-align: center;
+  padding: .3em .5em;
+  border-radius: 7px;
+  background-color: black;
+  color: white;
+}
+
+.Display_None {
+  display: none;
+}
+
+.Product_Category_Select_Tab--Large,
+.Product_Filter_Select_Tab--Large {
+  display: none;
+}
+
+@media (min-width: 900px) {
+
+  .Product_Filter_Tab--Mobile,
+  .Product_Category_Window--Mobile,
+  .Product_Filter_Window--Mobile {
+    display: none;
+  }
+
+  .Home_Page_Main {
+    display: flex;
+  }
+
+  .Product_Display::-webkit-scrollbar {
+      width: 0px;
+  }
+
+  .Product_Display {
+    height: 100vh;
+    overflow-y: scroll;
+    padding: 3em 0 0 0;
+  }
+
+  .Product_Category_Select_Tab--Large,
+  .Product_Filter_Select_Tab--Large {
+    display: block;
+    width: 25%;
+    margin: 3em 1em 0 1em;
+  }
+
+  .Product_Category_Select--Large--Select,
+  .Product_Company_Select--Large--Select,
+  .Product_Price_Select--Large--Select {
+    display: flex;
+    justify-content: center;
+    margin: 2em 0;
+  }
+
+  .Product_Category_Select--Large--Select select,
+  .Product_Company_Select--Large--Select select,
+  .Product_Price_Select--Large--Select select {
+    font-size: var(--Category_Select-Select);
+    padding: .3em 0;
+    width: 200px;
+    border-style: none;
+  }
 
 }

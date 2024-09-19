@@ -121,9 +121,45 @@ function App() {
 
   return (
     <div className="Home_Page_Container">
+      <div className="App_Title">
+        <h1 className="App_Title--Text">Affiliate marketing!</h1>
+      </div>
       <div className="Home_Page_Main">
-        <div className="App_Title">
-          <h1 className="App_Title--Text">Affiliate marketing!</h1>
+        <div className="Product_Category_Select_Tab--Large">
+          <div className="Product_Category_Select--Large--Select">
+            <select
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setDisabled(false);
+              }}
+            >
+              <option defaultValue={true} hidden>
+                Select category
+              </option>
+              <option value="Smartphone">Smartphone</option>
+              <option value="Laptop">Laptops & Tabs</option>
+              <option value="Television">Televisions</option>
+              <option value="Kitchen">Kitchen appliances</option>
+            </select>
+          </div>
+          <div
+            className={
+              disabled
+                ? "Select_Category_Button"
+                : "Select_Category_Button Select_Category_Button--Active"
+            }
+          >
+            <button
+              onClick={() => {
+                setPcwm(false);
+                selectCategory();
+                setDisabled(true);
+              }}
+              disabled={disabled}
+            >
+              Show products
+            </button>
+          </div>
         </div>
         <div className="Product_Display">
           {data?.map((data) => {
@@ -140,10 +176,8 @@ function App() {
                 </div>
                 <div className="Product_Details">
                   <p className="Product_Name">{data.product_name}</p>
-                  <p className="Product_Category">
-                    {data.product_category} - {data.company_name}
-                  </p>
-                  {/* <p className="Product_Company">{data.company_name}</p> */}
+                  <p className="Product_Category">{data.product_category}</p>
+                  <p className="Product_Company">{data.company_name}</p>
                   <p className="Product_Price">₹{data.offer_price}</p>
                   <p className="Product_MRP">
                     M.R.P:{" "}
@@ -155,6 +189,72 @@ function App() {
               </div>
             );
           })}
+        </div>
+        <div className="Product_Filter_Select_Tab--Large">
+          <div className="Product_Price_Select--Large--Select">
+            <select
+              onChange={(e) => {
+                let lowerLimit = e.target.value.split("-")[0];
+                let upperLimit = e.target.value.split("-")[1];
+                setLowerPrice(lowerLimit);
+                setDisabled(false);
+                if (upperLimit == 0) {
+                  setUpperPrice(0);
+                } else {
+                  setUpperPrice(upperLimit);
+                }
+              }}
+            >
+              <option defaultValue={true} hidden>
+                Select price range
+              </option>
+              <option value="0-10000">0 - 10,000</option>
+              <option value="10000-25000">10,001 - 25,000</option>
+              <option value="25000-40000">25,001 - 40,000</option>
+              <option value="40000-0">more than 40,000 </option>
+            </select>
+          </div>
+          <div className="Product_Company_Select--Large--Select">
+            <select
+              onChange={(e) => {
+                setCompany(e.target.value);
+                setDisabled(false);
+              }}
+            >
+              <option defaultValue={true} hidden>
+                Select company
+              </option>
+              <option value="Samsung">Samsung</option>
+              <option value="Xiaomi">Xiaomi</option>
+              <option value="Oneplus">Oneplus</option>
+              <option value="Vivo">Vivo</option>
+              <option value="Realme">Realme</option>
+              <option value="LG">LG</option>
+              <option value="IQOO">IQOO</option>
+              <option value="Godrej">Godrej</option>
+              <option value="Daikin">Daikin</option>
+              <option value="ASUS">ASUS</option>
+              <option value="Apple">Apple</option>
+              <option value="Nokia">Nokia</option>
+            </select>
+          </div>
+          <div
+            className={
+              disabled
+                ? "Select_Category_Button"
+                : "Select_Category_Button Select_Category_Button--Active"
+            }
+          >
+            <button
+              onClick={() => {
+                selectFilter();
+                setPfwm(false);
+              }}
+              disabled={disabled}
+            >
+              Show products
+            </button>
+          </div>
         </div>
         <div
           className={pcwm ? "Product_Category_Window--Mobile" : "Display_None"}
