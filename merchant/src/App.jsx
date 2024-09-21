@@ -4,36 +4,42 @@ import "./App.css";
 
 function App() {
   const [file, setFile] = useState("");
-  const [name, setName] = useState("Product ");
+  const [key, setKey] = useState("");
+  const [name, setName] = useState("");
   const [cat, setCat] = useState("");
   const [company, setCompany] = useState("");
-  const [mrp, setMrp] = useState(45000);
-  const [price, setPrice] = useState(35000);
+  const [mrp, setMrp] = useState("");
+  const [price, setPrice] = useState("");
+  const [disc, setDisc] = useState("");
   const [url, setUrl] = useState("");
 
   async function addProduct() {
+    console.log(file);
     let response = await axios.post("http://localhost:8008/addProduct", {
-      // fileType: file.type,
+      fileType: file.type,
       name: name,
+      key: key,
       cat: cat,
       company: company,
       mrp: mrp,
       price: price,
-      // url: url,
+      discount: disc,
+      url: url,
     });
     console.log(response.data);
-    // setFile();
-    // setName("");
-    // setCat("");
-    // setCompany("");
-    // setMrp("");
-    // setPrice("");
-    // setUrl("");
-    // let res2 = await axios.put(response.data, file, {
-    //   headers: {
-    //     "Content-Type": file.type,
-    //   },
-    // });
+    setFile("");
+    setName("");
+    setCat("");
+    setCompany("");
+    setMrp("");
+    setPrice("");
+    setDisc("");
+    setUrl("");
+    let res2 = await axios.put(response.data, file, {
+      headers: {
+        "Content-Type": file.type,
+      },
+    });
   }
 
   return (
@@ -56,6 +62,16 @@ function App() {
             setName(e.target.value);
           }}
           placeholder="Enter product name"
+        ></input>
+      </div>
+      <div className="Key">
+        <input
+          type="text"
+          value={key}
+          onChange={(e) => {
+            setKey(e.target.value);
+          }}
+          placeholder="Enter key"
         ></input>
       </div>
       <div className="Category">
@@ -120,6 +136,16 @@ function App() {
             setMrp(e.target.value);
           }}
           placeholder="Enter mrp"
+        ></input>
+      </div>
+      <div className="Discount">
+        <input
+          type="text"
+          value={disc}
+          onChange={(e) => {
+            setDisc(e.target.value);
+          }}
+          placeholder="Enter discount"
         ></input>
       </div>
       <div className="Price">
