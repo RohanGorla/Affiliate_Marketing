@@ -11,7 +11,8 @@ function App() {
   const [lowerPrice, setLowerPrice] = useState("");
   const [upperPrice, setUpperPrice] = useState("");
   const [company, setCompany] = useState("");
-  const [disabled, setDisabled] = useState(true);
+  const [catDisabled, setCatDisabled] = useState(true);
+  const [comDisabled, setComDisabled] = useState(true);
 
   async function getProductData() {
     let response = await axios.get("http://localhost:8008/");
@@ -20,54 +21,72 @@ function App() {
     setActualData(response.data);
   }
 
-  function selectCategory() {
-    let newData = actualData.filter((product) => {
-      if (product.product_category === category) {
-        return product;
-      }
-    });
-    setData(newData);
-  }
+  // function selectCategory() {
+  //   let newData = actualData.filter((product) => {
+  //     if (product.product_category === category) {
+  //       return product;
+  //     }
+  //   });
+  //   setData(newData);
+  // }
 
   function selectFilter() {
     if (category) {
       if (company) {
-        let newData = actualData.filter((product) => {
-          if (Number(lowerPrice) != 40000) {
+        if (lowerPrice) {
+          let newData = actualData.filter((product) => {
+            if (Number(lowerPrice) != 40000) {
+              if (
+                product.product_category === category &&
+                product.company_name === company &&
+                product.offer_price >= Number(lowerPrice) &&
+                product.offer_price <= Number(upperPrice)
+              ) {
+                return product;
+              }
+            } else {
+              if (
+                product.product_category === category &&
+                product.company_name === company &&
+                product.offer_price >= Number(lowerPrice)
+              ) {
+                return product;
+              }
+            }
+          });
+          setData(newData);
+        } else {
+          let newData = actualData.filter((product) => {
             if (
               product.product_category === category &&
-              product.company_name === company &&
-              product.offer_price >= Number(lowerPrice) &&
-              product.offer_price <= Number(upperPrice)
+              product.company_name === company
             ) {
               return product;
             }
-          } else {
-            if (
-              product.product_category === category &&
-              product.company_name === company &&
-              product.offer_price >= Number(lowerPrice)
-            ) {
-              return product;
-            }
-          }
-        });
-        setData(newData);
+          });
+          setData(newData);
+        }
       } else {
         let newData = actualData.filter((product) => {
-          if (Number(lowerPrice) != 40000) {
-            if (
-              product.product_category === category &&
-              product.offer_price >= Number(lowerPrice) &&
-              product.offer_price <= Number(upperPrice)
-            ) {
-              return product;
+          if (lowerPrice) {
+            if (Number(lowerPrice) != 40000) {
+              if (
+                product.product_category === category &&
+                product.offer_price >= Number(lowerPrice) &&
+                product.offer_price <= Number(upperPrice)
+              ) {
+                return product;
+              }
+            } else {
+              if (
+                product.product_category === category &&
+                product.offer_price >= Number(lowerPrice)
+              ) {
+                return product;
+              }
             }
           } else {
-            if (
-              product.product_category === category &&
-              product.offer_price >= Number(lowerPrice)
-            ) {
+            if (product.product_category === category) {
               return product;
             }
           }
@@ -77,19 +96,25 @@ function App() {
     } else {
       if (company) {
         let newData = actualData.filter((product) => {
-          if (Number(lowerPrice) != 40000) {
-            if (
-              product.company_name === company &&
-              product.offer_price >= Number(lowerPrice) &&
-              product.offer_price <= Number(upperPrice)
-            ) {
-              return product;
+          if (lowerPrice) {
+            if (Number(lowerPrice) != 40000) {
+              if (
+                product.company_name === company &&
+                product.offer_price >= Number(lowerPrice) &&
+                product.offer_price <= Number(upperPrice)
+              ) {
+                return product;
+              }
+            } else {
+              if (
+                product.company_name === company &&
+                Number(product.offer_price) >= Number(lowerPrice)
+              ) {
+                return product;
+              }
             }
           } else {
-            if (
-              product.company_name === company &&
-              Number(product.offer_price) >= Number(lowerPrice)
-            ) {
+            if (product.company_name === company) {
               return product;
             }
           }
@@ -97,16 +122,18 @@ function App() {
         setData(newData);
       } else {
         let newData = actualData.filter((product) => {
-          if (Number(lowerPrice) != 40000) {
-            if (
-              product.offer_price >= Number(lowerPrice) &&
-              product.offer_price <= Number(upperPrice)
-            ) {
-              return product;
-            }
-          } else {
-            if (product.offer_price >= Number(lowerPrice)) {
-              return product;
+          if (lowerPrice) {
+            if (Number(lowerPrice) != 40000) {
+              if (
+                product.offer_price >= Number(lowerPrice) &&
+                product.offer_price <= Number(upperPrice)
+              ) {
+                return product;
+              }
+            } else {
+              if (product.offer_price >= Number(lowerPrice)) {
+                return product;
+              }
             }
           }
         });
@@ -125,12 +152,13 @@ function App() {
         <h1 className="App_Title--Text">Affiliate marketing!</h1>
       </div>
       <div className="Home_Page_Main">
+        {/* FOR LARGE SCREENS */}
         <div className="Product_Category_Select_Tab--Large">
           <div className="Product_Category_Select--Large--Select">
             <select
               onChange={(e) => {
                 setCategory(e.target.value);
-                setDisabled(false);
+                setCatDisabled(false);
               }}
             >
               <option defaultValue={true} hidden>
@@ -142,62 +170,13 @@ function App() {
               <option value="Kitchen">Kitchen appliances</option>
             </select>
           </div>
-          <div
-            className={
-              disabled
-                ? "Select_Category_Button"
-                : "Select_Category_Button Select_Category_Button--Active"
-            }
-          >
-            <button
-              onClick={() => {
-                setPcwm(false);
-                selectCategory();
-                setDisabled(true);
-              }}
-              disabled={disabled}
-            >
-              Show products
-            </button>
-          </div>
-        </div>
-        <div className="Product_Display">
-          {data?.map((data) => {
-            return (
-              <div className="Product_Container" key={data.id}>
-                <div className="Product_Image">
-                  <img
-                    // src={data.image_url}
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTABbXr4i-QODqhy7tofHYmTYh05rYPktzacw&s"
-                    onClick={() => {
-                      window.open(`${data.product_url}`);
-                    }}
-                  ></img>
-                </div>
-                <div className="Product_Details">
-                  <p className="Product_Name">{data.product_name}</p>
-                  <p className="Product_Category">{data.product_category}</p>
-                  <p className="Product_Company">{data.company_name}</p>
-                  <p className="Product_Price">₹{data.offer_price}</p>
-                  <p className="Product_MRP">
-                    M.R.P:{" "}
-                    <span className="Product_MRP--Strike">
-                      ₹{data.product_mrp}
-                    </span>
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="Product_Filter_Select_Tab--Large">
           <div className="Product_Price_Select--Large--Select">
             <select
               onChange={(e) => {
                 let lowerLimit = e.target.value.split("-")[0];
                 let upperLimit = e.target.value.split("-")[1];
                 setLowerPrice(lowerLimit);
-                setDisabled(false);
+                setComDisabled(false);
                 if (upperLimit == 0) {
                   setUpperPrice(0);
                 } else {
@@ -218,7 +197,7 @@ function App() {
             <select
               onChange={(e) => {
                 setCompany(e.target.value);
-                setDisabled(false);
+                setComDisabled(false);
               }}
             >
               <option defaultValue={true} hidden>
@@ -240,7 +219,7 @@ function App() {
           </div>
           <div
             className={
-              disabled
+              comDisabled
                 ? "Select_Category_Button"
                 : "Select_Category_Button Select_Category_Button--Active"
             }
@@ -249,13 +228,164 @@ function App() {
               onClick={() => {
                 selectFilter();
                 setPfwm(false);
+                // setComDisabled(true);
               }}
-              disabled={disabled}
+              disabled={comDisabled}
             >
               Show products
             </button>
           </div>
+          {/* <div
+            className={
+              catDisabled
+                ? "Select_Category_Button"
+                : "Select_Category_Button Select_Category_Button--Active"
+            }
+          >
+            <button
+              onClick={() => {
+                setPcwm(false);
+                // selectCategory();
+                selectFilter();
+                // setCatDisabled(true);
+              }}
+              disabled={catDisabled}
+            >
+              Show products
+            </button>
+          </div> */}
         </div>
+        <div className="Product_Display">
+          {data?.map((data) => {
+            let mrp = data.product_mrp;
+            let offer_price = data.offer_price;
+            let mrp_string = mrp.toString();
+            let offer_price_string = offer_price.toString();
+            let mrp_arrey = mrp_string.split("").reverse();
+            let offer_price_arrey = offer_price_string.split("").reverse();
+            let mrp_iterator = Math.floor(mrp_arrey.length / 2);
+            let offer_price_iterator = Math.floor(offer_price_arrey.length / 2);
+            let k = 3;
+            for (let j = 0; j < mrp_iterator - 1; j++) {
+              console.log("in");
+              console.log(k);
+              mrp_arrey.splice(k, 0, ",");
+              k += 3;
+            }
+            k = 3;
+            for (let j = 0; j < offer_price_iterator - 1; j++) {
+              console.log("in");
+              console.log(k);
+              offer_price_arrey.splice(k, 0, ",");
+              k += 3;
+            }
+            let mrp_actual = mrp_arrey.reverse().join("");
+            let offer_price_actual = offer_price_arrey.reverse().join("");
+            return (
+              <div className="Product_Container" key={data.id}>
+                <div className="Product_Image">
+                  <img
+                    src={data.image_url}
+                    // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSijfZSJc2Ck-FSNYjwvLvn9m3LWP0_cOHfGA&s"
+                  ></img>
+                </div>
+                <div className="Product_Details">
+                  <p className="Product_Name">{data.product_name}</p>
+                  <p className="Product_Category">
+                    {data.product_category} - {data.company_name}
+                  </p>
+                  {/* <p className="Product_Company">{data.company_name}</p> */}
+                  <p className="Product_Price">
+                    <span className="Discount_Percentage">
+                      -{data.product_discount}%
+                    </span>{" "}
+                    ₹{offer_price_actual}
+                  </p>
+                  <p className="Product_MRP">
+                    M.R.P:{" "}
+                    <span className="Product_MRP--Strike">₹{mrp_actual}</span>
+                  </p>
+                  <button
+                    className="View_Product--Button"
+                    onClick={() => {
+                      window.open(`${data.product_url}`);
+                    }}
+                  >
+                    View Product
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        {/* <div className="Product_Filter_Select_Tab--Large">
+          <div className="Product_Price_Select--Large--Select">
+            <select
+              onChange={(e) => {
+                let lowerLimit = e.target.value.split("-")[0];
+                let upperLimit = e.target.value.split("-")[1];
+                setLowerPrice(lowerLimit);
+                setComDisabled(false);
+                if (upperLimit == 0) {
+                  setUpperPrice(0);
+                } else {
+                  setUpperPrice(upperLimit);
+                }
+              }}
+            >
+              <option defaultValue={true} hidden>
+                Select price range
+              </option>
+              <option value="0-10000">0 - 10,000</option>
+              <option value="10000-25000">10,001 - 25,000</option>
+              <option value="25000-40000">25,001 - 40,000</option>
+              <option value="40000-0">more than 40,000 </option>
+            </select>
+          </div>
+          <div className="Product_Company_Select--Large--Select">
+            <select
+              onChange={(e) => {
+                setCompany(e.target.value);
+                setComDisabled(false);
+              }}
+            >
+              <option defaultValue={true} hidden>
+                Select company
+              </option>
+              <option value="Samsung">Samsung</option>
+              <option value="Xiaomi">Xiaomi</option>
+              <option value="Oneplus">Oneplus</option>
+              <option value="Vivo">Vivo</option>
+              <option value="Realme">Realme</option>
+              <option value="LG">LG</option>
+              <option value="IQOO">IQOO</option>
+              <option value="Godrej">Godrej</option>
+              <option value="Daikin">Daikin</option>
+              <option value="ASUS">ASUS</option>
+              <option value="Apple">Apple</option>
+              <option value="Nokia">Nokia</option>
+            </select>
+          </div>
+          <div
+            className={
+              comDisabled
+                ? "Select_Category_Button"
+                : "Select_Category_Button Select_Category_Button--Active"
+            }
+          >
+            <button
+              onClick={() => {
+                selectFilter();
+                setPfwm(false);
+                // setComDisabled(true);
+              }}
+              disabled={comDisabled}
+            >
+              Show products
+            </button>
+          </div>
+        </div> */}
+        {/* FOR MOBILE DEVICES */}
         <div
           className={pcwm ? "Product_Category_Window--Mobile" : "Display_None"}
         >
@@ -267,7 +397,7 @@ function App() {
             <select
               onChange={(e) => {
                 setCategory(e.target.value);
-                setDisabled(false);
+                setCatDisabled(false);
               }}
             >
               <option defaultValue={true} hidden>
@@ -281,7 +411,7 @@ function App() {
           </div>
           <div
             className={
-              disabled
+              catDisabled
                 ? "Select_Category_Button"
                 : "Select_Category_Button Select_Category_Button--Active"
             }
@@ -289,10 +419,10 @@ function App() {
             <button
               onClick={() => {
                 setPcwm(false);
-                selectCategory();
-                setDisabled(true);
+                selectFilter();
+                setCatDisabled(true);
               }}
-              disabled={disabled}
+              disabled={catDisabled}
             >
               Show products
             </button>
@@ -306,7 +436,7 @@ function App() {
             <select
               onChange={(e) => {
                 setCompany(e.target.value);
-                setDisabled(false);
+                setComDisabled(false);
               }}
             >
               <option defaultValue={true} hidden>
@@ -333,7 +463,7 @@ function App() {
                 let lowerLimit = e.target.value.split("-")[0];
                 let upperLimit = e.target.value.split("-")[1];
                 setLowerPrice(lowerLimit);
-                setDisabled(false);
+                setComDisabled(false);
                 if (upperLimit == 0) {
                   setUpperPrice(0);
                 } else {
@@ -352,7 +482,7 @@ function App() {
           </div>
           <div
             className={
-              disabled
+              comDisabled
                 ? "Select_Category_Button"
                 : "Select_Category_Button Select_Category_Button--Active"
             }
@@ -361,8 +491,9 @@ function App() {
               onClick={() => {
                 selectFilter();
                 setPfwm(false);
+                setComDisabled(true);
               }}
-              disabled={disabled}
+              disabled={comDisabled}
             >
               Show products
             </button>
