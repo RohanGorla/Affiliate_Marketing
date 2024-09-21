@@ -63,14 +63,17 @@ app.get("/", (req, res) => {
 
 app.post("/addProduct", async (req, res) => {
   const file_type = req.body.fileType;
+  console.log(file_type);
   const product_name = req.body.name;
+  const Key_Name = req.body.key;
   const product_category = req.body.cat;
   const product_company = req.body.company;
   const MRP = req.body.mrp;
   const final_price = req.body.price;
+  const discount = req.body.discount;
   const product_url = req.body.url;
   const extention = file_type.split("/")[1];
-  const key = `testing/${product_name}-${Date.now()}.${extention}`;
+  const key = `affiliate/${Key_Name}-${Date.now()}.${extention}`;
   //   console.log(
   //     key,
   //     file_type,
@@ -94,11 +97,13 @@ app.post("/addProduct", async (req, res) => {
     product_company,
     MRP,
     final_price,
+    discount,
     key,
     product_url,
   ];
   db.query(
-    "insert into product_data (product_name, product_category, company_name, product_mrp, offer_price, image_tag, product_url) values (?)",
+    "insert into product_data (product_name, product_category, company_name, product_mrp, offer_price, product_discount, image_tag, product_url) values (?)",
+    // "insert into product_data (product_name, product_category, company_name, product_mrp, offer_price, product_url) values (?)",
     [values],
     (err, data) => {
       if (err) {
@@ -106,6 +111,7 @@ app.post("/addProduct", async (req, res) => {
         return res.json(err);
       } else {
         console.log(data);
+        // res.send("Done");
         res.json(URL);
       }
     }
