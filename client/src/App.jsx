@@ -15,7 +15,7 @@ function App() {
   const [comDisabled, setComDisabled] = useState(true);
 
   async function getProductData() {
-    let response = await axios.get("http://localhost:8008/");
+    let response = await axios.get(`${import.meta.env.VITE_BASE_URL}/`);
     console.log(response.data);
     setData(response.data);
     setActualData(response.data);
