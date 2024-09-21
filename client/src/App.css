@@ -1,10 +1,12 @@
 :root {
   --Main_Title: 20px;
-  --Product_Name: 20px;
-  --Product_Category: 14px;
-  --Product_Company: 14px;
-  --Product_Price: 20px;
-  --Product_Mrp: 16px;
+  --Product_Name: 11px;
+  --Product_Category: 8px;
+  --Product_Company: 8px;
+  --Discount_Percentage: 10px;
+  --Product_Price: 14px;
+  --Product_Mrp: 8px;
+  --View_Product_Btn: 10px;
   --Category_Select-Main: 22px;
   --Category_Select-Select: 13px;
   --Category_Select-Button: 14px;
@@ -27,24 +29,25 @@
 .Product_Display {
   width: 97%;
   margin: 0 auto;
-  padding-bottom: 3em;
+  padding: 3em 0;
 }
 
 .Product_Container {
-  margin: .1em 0;
-  min-height: 250px;
+  margin: .3em 0;
+  padding: 2em 0;
+  max-height: 270px;
   display: flex;
   align-items: center;
   background-color: black;
 }
 
 .Product_Image {
-  margin: .3em 0 1em 0;
   display: flex;
-  height: 100%;
-  width: 40%;
   justify-content: center;
   align-items: center;
+  height: 160px;
+  min-width: 30%;
+  margin: 0 .7em 0 .3em;
 }
 
 .Product_Image img {
@@ -52,15 +55,15 @@
   display: block;
   max-width: 100%;
   max-height: 100%;
-  cursor: pointer;
 }
 
 .Product_Details {
-  padding: .3em 0;
+  max-width: 55%;
 }
 
 .Product_Name {
   font-size: var(--Product_Name);
+  margin-bottom: .3em;
 }
 
 .Product_Category {
@@ -71,8 +74,13 @@
   font-size: var(--Product_Company);
 }
 
+.Discount_Percentage {
+  font-size: var(--Discount_Percentage);
+}
+
 .Product_Price {
   font-size: var(--Product_Price);
+  margin: .5em 0 .1em 0;
 }
 
 .Product_MRP {
@@ -81,6 +89,18 @@
 
 .Product_MRP--Strike {
   text-decoration: line-through;
+}
+
+.View_Product--Button {
+  font-size: var(--View_Product_Btn);
+  font-weight: 600;
+  padding: .8em 1.5em;
+  margin-top: .5em;
+  border-style: none;
+  border-radius: 3px;
+  background-color: gold;
+  color: black;
+  cursor: pointer;
 }
 
 .Product_Filter_Tab--Mobile {
@@ -181,7 +201,66 @@
   display: none;
 }
 
+@media (min-width: 500px) {
+
+  :root {
+    --Main_Title: 20px;
+    --Product_Name: 14px;
+    --Product_Category: 10px;
+    --Product_Company: 10px;
+    --Discount_Percentage: 11px;
+    --Product_Price: 16px;
+    --Product_Mrp: 11px;
+    --View_Product_Btn: 12px;
+    --Category_Select-Main: 24px;
+    --Category_Select-Select: 15px;
+    --Category_Select-Button: 14px;
+  }
+
+  .App_Title {
+    padding: .6em 0 .4em 0;
+  }
+
+  .Product_Container {
+    padding: 3em 0;
+    max-height: 300px;
+  }
+  
+  .Product_Image {
+    height: 200px;
+    min-width: 25%;
+  }
+
+}
+
+@media (min-width: 700px) {
+
+  :root {
+    --Main_Title: 23px;
+    --Product_Name: 16px;
+    --Product_Category: 12px;
+    --Product_Company: 12px;
+    --Discount_Percentage: 12px;
+    --Product_Price: 18px;
+    --Product_Mrp: 12px;
+    --View_Product_Btn: 13px;
+    --Category_Select-Main: 24px;
+    --Category_Select-Select: 15px;
+    --Category_Select-Button: 14px;
+  }
+
+  .App_Title {
+    padding: .5em 0;
+  }
+
+}
+
 @media (min-width: 900px) {
+
+  .Home_Page_Container {
+    width: 95%;
+    margin: 0 auto;
+  }
 
   .Product_Filter_Tab--Mobile,
   .Product_Category_Window--Mobile,
@@ -198,9 +277,9 @@
   }
 
   .Product_Display {
-    height: 100vh;
+    max-height: 100vh;
     overflow-y: scroll;
-    padding: 3em 0 0 0;
+    padding-top: 3em;
   }
 
   .Product_Category_Select_Tab--Large,
@@ -225,6 +304,54 @@
     padding: .3em 0;
     width: 200px;
     border-style: none;
+  }
+
+  .Product_Image {
+    min-width: 20%;
+  }
+
+  .Product_Details {
+    max-width: 65%;
+  }
+
+}
+
+@media (min-width: 1350px) {
+
+  :root {
+    --Main_Title: 30px;
+    --Product_Name: 14px;
+    --Product_Category: 10px;
+    --Product_Company: 10px;
+    --Discount_Percentage: 11px;
+    --Product_Price: 16px;
+    --Product_Mrp: 11px;
+    --View_Product_Btn: 12px;
+    --Category_Select-Main: 24px;
+    --Category_Select-Select: 15px;
+    --Category_Select-Button: 14px;
+  }
+
+  .App_Title--Text {
+    margin-top: .2em;
+  }
+
+  .Product_Display {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding-top: 4em;
+  }
+
+  .Product_Container {
+    margin: .3em;
+  }
+
+  .Product_Image {
+    min-width: 25%;
+  }
+
+  .Product_Details {
+    max-width: 65%;
   }
 
 }
