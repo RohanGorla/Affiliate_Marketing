@@ -59,7 +59,8 @@
 }
 
 .Product_Details {
-  max-width: 55%;
+  /* max-width: 50%; */
+  width: 50%;
 }
 
 .Product_Name {
@@ -259,6 +260,10 @@
     width: 30%;
   }
 
+  .Product_Details {
+    width: 60%;
+  }
+
 }
 
 @media (min-width: 900px) {
@@ -355,7 +360,7 @@
 
   .Product_Image {
     /* min-width: 25%; */
-    width: 35%;
+    width: 40%;
   }
 
   .Product_Details {
