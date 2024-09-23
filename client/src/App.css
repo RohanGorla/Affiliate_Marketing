@@ -323,7 +323,42 @@
   }
 
   .Product_Details {
-    max-width: 65%;
+    width: 65%;
+  }
+
+  .Select_Filter_Button {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .Select_Filter_Button button {
+    font-size: var(--Category_Select-Button);
+    padding: .8em 1em;
+    border-style: none;
+    border-radius: 7px;
+  }
+  
+  .Select_Filter_Button--Active button{
+    background-color: black;
+    color: white;
+  }
+
+  .Remove_Filter_Button {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+  }
+  
+  .Remove_Filter_Button button {
+    font-size: var(--Category_Select-Button);
+    padding: .8em 1em;
+    border-style: none;
+    border-radius: 7px;
+  }
+  
+  .Remove_Filter_Button--Active button{
+    background-color: black;
+    color: white;
   }
 
 }
@@ -365,7 +400,7 @@
 
   .Product_Details {
     /* max-width: 65%; */
-    max-width: 50%;
+    width: 50%;
   }
 
 }

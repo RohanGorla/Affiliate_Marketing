@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
+import photo from "../src/assets/realme narzo 70x.jpg";
+import phone from "../src/assets/vivo t3 ultra.jpg";
 
 function App() {
   const [data, setData] = useState([]);
@@ -13,6 +15,7 @@ function App() {
   const [company, setCompany] = useState("");
   const [catDisabled, setCatDisabled] = useState(true);
   const [comDisabled, setComDisabled] = useState(true);
+  const [filterBtnDis, setFilterBtnDis] = useState(true);
 
   async function getProductData() {
     let response = await axios.get(`${import.meta.env.VITE_BASE_URL}/`);
@@ -142,6 +145,10 @@ function App() {
     }
   }
 
+  function removeFilter() {
+    setData(actualData);
+  }
+
   useEffect(() => {
     getProductData();
   }, []);
@@ -158,7 +165,8 @@ function App() {
             <select
               onChange={(e) => {
                 setCategory(e.target.value);
-                setCatDisabled(false);
+                // setCatDisabled(false);
+                setFilterBtnDis(false);
               }}
             >
               <option defaultValue={true} hidden>
@@ -176,7 +184,8 @@ function App() {
                 let lowerLimit = e.target.value.split("-")[0];
                 let upperLimit = e.target.value.split("-")[1];
                 setLowerPrice(lowerLimit);
-                setComDisabled(false);
+                // setComDisabled(false);
+                setFilterBtnDis(false);
                 if (upperLimit == 0) {
                   setUpperPrice(0);
                 } else {
@@ -197,7 +206,8 @@ function App() {
             <select
               onChange={(e) => {
                 setCompany(e.target.value);
-                setComDisabled(false);
+                // setComDisabled(false);
+                setFilterBtnDis(false);
               }}
             >
               <option defaultValue={true} hidden>
@@ -219,9 +229,9 @@ function App() {
           </div>
           <div
             className={
-              comDisabled
-                ? "Select_Category_Button"
-                : "Select_Category_Button Select_Category_Button--Active"
+              filterBtnDis
+                ? "Select_Filter_Button"
+                : "Select_Filter_Button Select_Filter_Button--Active"
             }
           >
             <button
@@ -230,9 +240,27 @@ function App() {
                 setPfwm(false);
                 // setComDisabled(true);
               }}
-              disabled={comDisabled}
+              disabled={filterBtnDis}
             >
               Show products
+            </button>
+          </div>
+          <div
+            className={
+              filterBtnDis
+                ? "Remove_Filter_Button"
+                : "Remove_Filter_Button Remove_Filter_Button--Active"
+            }
+          >
+            <button
+              onClick={() => {
+                removeFilter();
+                setPfwm(false);
+                // setComDisabled(true);
+              }}
+              disabled={filterBtnDis}
+            >
+              Remove filters
             </button>
           </div>
           {/* <div
@@ -285,7 +313,9 @@ function App() {
               <div className="Product_Container" key={data.id}>
                 <div className="Product_Image">
                   <img
-                    src={data.image_url}
+                    // src={data.image_url}
+                    src={data.id % 2 ? photo : phone}
+                    // src="https://image01.realme.net/general/20240418/17134199016339087d7f43c1a4b22bc8e1b8ef23d21b8.png.webp?width=1440&height=1440&size=312562"
                     // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSijfZSJc2Ck-FSNYjwvLvn9m3LWP0_cOHfGA&s"
                   ></img>
                 </div>
