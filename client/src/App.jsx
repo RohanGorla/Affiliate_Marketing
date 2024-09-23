@@ -10,16 +10,20 @@ function App() {
   const [pcwm, setPcwm] = useState(false);
   const [pfwm, setPfwm] = useState(false);
   const [category, setCategory] = useState("");
+  const [priceRange, setPriceRange] = useState("");
   const [lowerPrice, setLowerPrice] = useState("");
   const [upperPrice, setUpperPrice] = useState("");
   const [company, setCompany] = useState("");
   const [catDisabled, setCatDisabled] = useState(true);
   const [comDisabled, setComDisabled] = useState(true);
   const [filterBtnDis, setFilterBtnDis] = useState(true);
+  const [defaultCompany, setDefaultCompany] = useState(true);
+  const [defaultCategory, setDefaultCategory] = useState(true);
+  const [defaultPrice, setDefaultPrice] = useState(true);
 
   async function getProductData() {
     let response = await axios.get(`${import.meta.env.VITE_BASE_URL}/`);
-    console.log(response.data);
+    // console.log(response.data);
     setData(response.data);
     setActualData(response.data);
   }
@@ -150,6 +154,15 @@ function App() {
   }
 
   useEffect(() => {
+    if (!defaultCompany || !defaultCategory || !defaultPrice) {
+      setFilterBtnDis(false);
+    } else {
+      setFilterBtnDis(true);
+      setData(actualData);
+    }
+  }, [company, category, priceRange]);
+
+  useEffect(() => {
     getProductData();
   }, []);
 
@@ -164,14 +177,22 @@ function App() {
           <div className="Product_Category_Select--Large--Select">
             <select
               onChange={(e) => {
-                setCategory(e.target.value);
-                // setCatDisabled(false);
-                setFilterBtnDis(false);
+                if (e.target.value != "none") {
+                  setDefaultCategory(false);
+                  setCategory(e.target.value);
+                  // setCatDisabled(false);
+                  setFilterBtnDis(false);
+                } else {
+                  setDefaultCategory(true);
+                  setCategory("Select category");
+                }
               }}
+              value={defaultCategory ? "Select category" : category}
             >
-              <option defaultValue={true} hidden>
+              <option value="Select category" hidden>
                 Select category
               </option>
+              <option value="none">none</option>
               <option value="Smartphone">Smartphone</option>
               <option value="Laptop">Laptops & Tabs</option>
               <option value="Television">Televisions</option>
@@ -181,21 +202,31 @@ function App() {
           <div className="Product_Price_Select--Large--Select">
             <select
               onChange={(e) => {
-                let lowerLimit = e.target.value.split("-")[0];
-                let upperLimit = e.target.value.split("-")[1];
-                setLowerPrice(lowerLimit);
-                // setComDisabled(false);
-                setFilterBtnDis(false);
-                if (upperLimit == 0) {
-                  setUpperPrice(0);
+                if (e.target.value != "none") {
+                  setDefaultPrice(false);
+                  setPriceRange(e.target.value);
+                  console.log(e.target.value);
+                  let lowerLimit = e.target.value.split("-")[0];
+                  let upperLimit = e.target.value.split("-")[1];
+                  setLowerPrice(lowerLimit);
+                  // setComDisabled(false);
+                  setFilterBtnDis(false);
+                  if (upperLimit == 0) {
+                    setUpperPrice(0);
+                  } else {
+                    setUpperPrice(upperLimit);
+                  }
                 } else {
-                  setUpperPrice(upperLimit);
+                  setDefaultPrice(true);
+                  setPriceRange("Select price");
                 }
               }}
+              value={defaultPrice ? "Select price" : priceRange}
             >
-              <option defaultValue={true} hidden>
+              <option value="Select price" hidden>
                 Select price range
               </option>
+              <option value="none">none</option>
               <option value="0-10000">0 - 10,000</option>
               <option value="10000-25000">10,001 - 25,000</option>
               <option value="25000-40000">25,001 - 40,000</option>
@@ -205,14 +236,23 @@ function App() {
           <div className="Product_Company_Select--Large--Select">
             <select
               onChange={(e) => {
-                setCompany(e.target.value);
-                // setComDisabled(false);
-                setFilterBtnDis(false);
+                if (e.target.value != "none") {
+                  setDefaultCompany(false);
+                  setCompany(e.target.value);
+                  // setComDisabled(false);
+                  setFilterBtnDis(false);
+                } else {
+                  setDefaultCompany(true);
+                  setCompany("Select company");
+                }
               }}
+              // defaultValue={"Select company"}
+              value={defaultCompany ? "Select company" : company}
             >
-              <option defaultValue={true} hidden>
+              <option value="Select company" hidden>
                 Select company
               </option>
+              <option value="none">none</option>
               <option value="Samsung">Samsung</option>
               <option value="Xiaomi">Xiaomi</option>
               <option value="Oneplus">Oneplus</option>
@@ -256,6 +296,12 @@ function App() {
               onClick={() => {
                 removeFilter();
                 setPfwm(false);
+                setFilterBtnDis(true);
+                // setCompany("Select company");
+                // setCategory("Select category");
+                setDefaultCompany(true);
+                setDefaultCategory(true);
+                setDefaultPrice(true);
                 // setComDisabled(true);
               }}
               disabled={filterBtnDis}
@@ -295,15 +341,23 @@ function App() {
             let offer_price_iterator = Math.floor(offer_price_arrey.length / 2);
             let k = 3;
             for (let j = 0; j < mrp_iterator - 1; j++) {
-              console.log("in");
-              console.log(k);
+              {
+                /* console.log("in"); */
+              }
+              {
+                /* console.log(k); */
+              }
               mrp_arrey.splice(k, 0, ",");
               k += 3;
             }
             k = 3;
             for (let j = 0; j < offer_price_iterator - 1; j++) {
-              console.log("in");
-              console.log(k);
+              {
+                /* console.log("in"); */
+              }
+              {
+                /* console.log(k); */
+              }
               offer_price_arrey.splice(k, 0, ",");
               k += 3;
             }
