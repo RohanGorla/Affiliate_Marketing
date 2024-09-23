@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import photo from "../src/assets/realme narzo 70x.jpg";
-import phone from "../src/assets/vivo t3 ultra.jpg";
 
 function App() {
   const [data, setData] = useState([]);
@@ -159,6 +157,16 @@ function App() {
     } else {
       setFilterBtnDis(true);
       setData(actualData);
+    }
+    if (!defaultCategory) {
+      setCatDisabled(false);
+    } else {
+      setCatDisabled(true);
+    }
+    if (!defaultCompany || !defaultPrice) {
+      setComDisabled(false);
+    } else {
+      setComDisabled(true);
     }
   }, [company, category, priceRange]);
 
@@ -368,9 +376,7 @@ function App() {
                 <div className="Product_Image">
                   <img
                     // src={data.image_url}
-                    src={data.id % 2 ? photo : phone}
-                    // src="https://image01.realme.net/general/20240418/17134199016339087d7f43c1a4b22bc8e1b8ef23d21b8.png.webp?width=1440&height=1440&size=312562"
-                    // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSijfZSJc2Ck-FSNYjwvLvn9m3LWP0_cOHfGA&s"
+                    src="https://image01.realme.net/general/20240418/17134199016339087d7f43c1a4b22bc8e1b8ef23d21b8.png.webp?width=1440&height=1440&size=312562"
                   ></img>
                 </div>
                 <div className="Product_Details">
@@ -480,13 +486,21 @@ function App() {
           <div className="Select_Category--Select">
             <select
               onChange={(e) => {
-                setCategory(e.target.value);
-                setCatDisabled(false);
+                if (e.target.value != "none") {
+                  setCategory(e.target.value);
+                  // setCatDisabled(false);
+                  setDefaultCategory(false);
+                } else {
+                  setDefaultCategory(true);
+                  setCategory("");
+                }
               }}
+              value={defaultCategory ? "Select category" : category}
             >
-              <option defaultValue={true} hidden>
+              <option value="Select category" hidden>
                 Select category
               </option>
+              <option value="none">none</option>
               <option value="Smartphone">Smartphone</option>
               <option value="Laptop">Laptops & Tabs</option>
               <option value="Television">Televisions</option>
@@ -504,7 +518,7 @@ function App() {
               onClick={() => {
                 setPcwm(false);
                 selectFilter();
-                setCatDisabled(true);
+                // setCatDisabled(true);
               }}
               disabled={catDisabled}
             >
@@ -519,13 +533,21 @@ function App() {
           <div className="Select_Company">
             <select
               onChange={(e) => {
-                setCompany(e.target.value);
-                setComDisabled(false);
+                if (e.target.value != "none") {
+                  setCompany(e.target.value);
+                  // setComDisabled(false);
+                  setDefaultCompany(false);
+                } else {
+                  setDefaultCompany(true);
+                  setCompany("");
+                }
               }}
+              value={defaultCompany ? "Select company" : company}
             >
-              <option defaultValue={true} hidden>
+              <option value="Select company" hidden>
                 Select company
               </option>
+              <option value="none">none</option>
               <option value="Samsung">Samsung</option>
               <option value="Xiaomi">Xiaomi</option>
               <option value="Oneplus">Oneplus</option>
@@ -544,20 +566,31 @@ function App() {
           <div className="Select_Price">
             <select
               onChange={(e) => {
-                let lowerLimit = e.target.value.split("-")[0];
-                let upperLimit = e.target.value.split("-")[1];
-                setLowerPrice(lowerLimit);
-                setComDisabled(false);
-                if (upperLimit == 0) {
-                  setUpperPrice(0);
+                if (e.target.value != "none") {
+                  setPriceRange(e.target.value);
+                  let lowerLimit = e.target.value.split("-")[0];
+                  let upperLimit = e.target.value.split("-")[1];
+                  setLowerPrice(lowerLimit);
+                  // setComDisabled(false);
+                  setDefaultPrice(false);
+                  if (upperLimit == 0) {
+                    setUpperPrice(0);
+                  } else {
+                    setUpperPrice(upperLimit);
+                  }
                 } else {
-                  setUpperPrice(upperLimit);
+                  setDefaultPrice(true);
+                  setPriceRange("");
+                  setLowerPrice("");
+                  setUpperPrice("");
                 }
               }}
+              value={defaultPrice ? "Select price" : priceRange}
             >
-              <option defaultValue={true} hidden>
-                Select price range
+              <option value="Select price" hidden>
+                Select price
               </option>
+              <option value="none">none</option>
               <option value="0-10000">0 - 10,000</option>
               <option value="10000-25000">10,001 - 25,000</option>
               <option value="25000-40000">25,001 - 40,000</option>
@@ -575,7 +608,7 @@ function App() {
               onClick={() => {
                 selectFilter();
                 setPfwm(false);
-                setComDisabled(true);
+                // setComDisabled(true);
               }}
               disabled={comDisabled}
             >
