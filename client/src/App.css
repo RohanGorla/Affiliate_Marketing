@@ -1,12 +1,12 @@
 :root {
   --Main_Title: 20px;
-  --Product_Name: 11px;
-  --Product_Category: 8px;
+  --Product_Name: 13px;
+  --Product_Category: 10px;
   --Product_Company: 8px;
-  --Discount_Percentage: 10px;
-  --Product_Price: 14px;
-  --Product_Mrp: 8px;
-  --View_Product_Btn: 10px;
+  --Discount_Percentage: 11px;
+  --Product_Price: 15px;
+  --Product_Mrp: 9px;
+  --View_Product_Btn: 11px;
   --Category_Select-Main: 22px;
   --Category_Select-Select: 13px;
   --Category_Select-Button: 14px;

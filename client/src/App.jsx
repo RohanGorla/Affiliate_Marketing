@@ -182,6 +182,7 @@ function App() {
       <div className="Home_Page_Main">
         {/* FOR LARGE SCREENS */}
         <div className="Product_Category_Select_Tab--Large">
+          {/* CATEGORY SELECTION FILTER */}
           <div className="Product_Category_Select--Large--Select">
             <select
               onChange={(e) => {
@@ -192,7 +193,7 @@ function App() {
                   setFilterBtnDis(false);
                 } else {
                   setDefaultCategory(true);
-                  setCategory("Select category");
+                  setCategory("");
                 }
               }}
               value={defaultCategory ? "Select category" : category}
@@ -207,6 +208,7 @@ function App() {
               <option value="Kitchen">Kitchen appliances</option>
             </select>
           </div>
+          {/* PRICE SELECTION FILTER */}
           <div className="Product_Price_Select--Large--Select">
             <select
               onChange={(e) => {
@@ -226,7 +228,7 @@ function App() {
                   }
                 } else {
                   setDefaultPrice(true);
-                  setPriceRange("Select price");
+                  setPriceRange("");
                 }
               }}
               value={defaultPrice ? "Select price" : priceRange}
@@ -241,6 +243,7 @@ function App() {
               <option value="40000-0">more than 40,000 </option>
             </select>
           </div>
+          {/* COMPANY SELECTION FILTER */}
           <div className="Product_Company_Select--Large--Select">
             <select
               onChange={(e) => {
@@ -251,7 +254,7 @@ function App() {
                   setFilterBtnDis(false);
                 } else {
                   setDefaultCompany(true);
-                  setCompany("Select company");
+                  setCompany("");
                 }
               }}
               // defaultValue={"Select company"}
@@ -275,6 +278,7 @@ function App() {
               <option value="Nokia">Nokia</option>
             </select>
           </div>
+          {/* APPLY FILTER BUTTON */}
           <div
             className={
               filterBtnDis
@@ -290,9 +294,10 @@ function App() {
               }}
               disabled={filterBtnDis}
             >
-              Show products
+              Apply filter
             </button>
           </div>
+          {/* REMOVE FILTER BUTTON */}
           <div
             className={
               filterBtnDis
@@ -314,7 +319,7 @@ function App() {
               }}
               disabled={filterBtnDis}
             >
-              Remove filters
+              Remove filter
             </button>
           </div>
           {/* <div
@@ -522,7 +527,7 @@ function App() {
               }}
               disabled={catDisabled}
             >
-              Show products
+              Apply filter
             </button>
           </div>
         </div>
@@ -612,7 +617,7 @@ function App() {
               }}
               disabled={comDisabled}
             >
-              Show products
+              Apply filter
             </button>
           </div>
         </div>
