@@ -485,6 +485,14 @@ function App() {
           className={pcwm ? "Product_Category_Window--Mobile" : "Display_None"}
         >
           {/* <p className="Select_Category_Heading">Select category</p> */}
+          <div
+            className="Filter_Tab_Close_Button"
+            onClick={() => {
+              setPcwm(false);
+            }}
+          >
+            <span className="Cross_Symbol"></span>
+          </div>
           <p className="Select_Category_Note">
             Select your requires category from the drop down below.
           </p>
@@ -534,6 +542,14 @@ function App() {
         <div
           className={pfwm ? "Product_Filter_Window--Mobile" : "Display_None"}
         >
+          <div
+            className="Filter_Tab_Close_Button"
+            onClick={() => {
+              setPfwm(false);
+            }}
+          >
+            <span className="Cross_Symbol"></span>
+          </div>
           <p>Select company from below drop down!</p>
           <div className="Select_Company">
             <select
