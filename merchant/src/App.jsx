@@ -15,7 +15,7 @@ function App() {
 
   async function addProduct() {
     console.log(file);
-    let response = await axios.post("http://localhost:8008/addProduct", {
+    let response = await axios.post("http://localhost:3000/addProduct", {
       fileType: file.type,
       name: name,
       key: key,
