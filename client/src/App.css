@@ -207,13 +207,13 @@
 
   :root {
     --Main_Title: 20px;
-    --Product_Name: 14px;
-    --Product_Category: 10px;
+    --Product_Name: 16px;
+    --Product_Category: 13px;
     --Product_Company: 10px;
-    --Discount_Percentage: 11px;
-    --Product_Price: 16px;
-    --Product_Mrp: 11px;
-    --View_Product_Btn: 12px;
+    --Discount_Percentage: 14px;
+    --Product_Price: 18px;
+    --Product_Mrp: 13px;
+    --View_Product_Btn: 14px;
     --Category_Select-Main: 24px;
     --Category_Select-Select: 15px;
     --Category_Select-Button: 14px;
@@ -240,13 +240,13 @@
 
   :root {
     --Main_Title: 23px;
-    --Product_Name: 16px;
-    --Product_Category: 12px;
+    --Product_Name: 19px;
+    --Product_Category: 14px;
     --Product_Company: 12px;
-    --Discount_Percentage: 12px;
-    --Product_Price: 18px;
-    --Product_Mrp: 12px;
-    --View_Product_Btn: 13px;
+    --Discount_Percentage: 14px;
+    --Product_Price: 22px;
+    --Product_Mrp: 13px;
+    --View_Product_Btn: 14px;
     --Category_Select-Main: 24px;
     --Category_Select-Select: 15px;
     --Category_Select-Button: 14px;
@@ -267,6 +267,20 @@
 }
 
 @media (min-width: 900px) {
+
+  :root {
+    --Main_Title: 20px;
+    --Product_Name: 17px;
+    --Product_Category: 13px;
+    --Product_Company: 10px;
+    --Discount_Percentage: 14px;
+    --Product_Price: 19px;
+    --Product_Mrp: 14px;
+    --View_Product_Btn: 15px;
+    --Category_Select-Main: 24px;
+    --Category_Select-Select: 15px;
+    --Category_Select-Button: 14px;
+  }
 
   .Home_Page_Container {
     width: 95%;
@@ -363,17 +377,17 @@
 
 }
 
-@media (min-width: 1350px) {
+@media (min-width: 1250px) {
 
   :root {
     --Main_Title: 30px;
-    --Product_Name: 14px;
-    --Product_Category: 10px;
+    --Product_Name: 15px;
+    --Product_Category: 12px;
     --Product_Company: 10px;
-    --Discount_Percentage: 11px;
-    --Product_Price: 16px;
-    --Product_Mrp: 11px;
-    --View_Product_Btn: 12px;
+    --Discount_Percentage: 12px;
+    --Product_Price: 18px;
+    --Product_Mrp: 12px;
+    --View_Product_Btn: 13px;
     --Category_Select-Main: 24px;
     --Category_Select-Select: 15px;
     --Category_Select-Button: 14px;
