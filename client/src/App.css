@@ -168,6 +168,14 @@
   font-size: var(--Category_Select-Main);
 }
 
+.Select_Category_Note {
+  margin-top: 2em;
+}
+
+.Select_Company_Note {
+  margin-top: 2em;
+}
+
 .Select_Category--Select {
   display: flex;
   justify-content: center;

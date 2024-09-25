@@ -380,8 +380,8 @@ function App() {
               <div className="Product_Container" key={data.id}>
                 <div className="Product_Image">
                   <img
-                    // src={data.image_url}
-                    src="https://image01.realme.net/general/20240418/17134199016339087d7f43c1a4b22bc8e1b8ef23d21b8.png.webp?width=1440&height=1440&size=312562"
+                    src={data.image_url}
+                    // src="https://image01.realme.net/general/20240418/17134199016339087d7f43c1a4b22bc8e1b8ef23d21b8.png.webp?width=1440&height=1440&size=312562"
                   ></img>
                 </div>
                 <div className="Product_Details">
@@ -494,7 +494,7 @@ function App() {
             <span className="Cross_Symbol"></span>
           </div>
           <p className="Select_Category_Note">
-            Select your requires category from the drop down below.
+            Select your requires category from the drop down.
           </p>
           <div className="Select_Category--Select">
             <select
@@ -550,7 +550,7 @@ function App() {
           >
             <span className="Cross_Symbol"></span>
           </div>
-          <p>Select company from below drop down!</p>
+          <p className="Select_Company_Note">Select company from below drop down!</p>
           <div className="Select_Company">
             <select
               onChange={(e) => {
