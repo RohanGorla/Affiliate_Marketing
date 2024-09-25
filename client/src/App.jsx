@@ -177,7 +177,7 @@ function App() {
   return (
     <div className="Home_Page_Container">
       <div className="App_Title">
-        <h1 className="App_Title--Text">Affiliate marketing!</h1>
+        <h1 className="App_Title--Text">Dream Deals</h1>
       </div>
       <div className="Home_Page_Main">
         {/* FOR LARGE SCREENS */}
